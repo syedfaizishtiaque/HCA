@@ -1,0 +1,133 @@
+﻿@{
+    ViewData["Title"] = "LogIn";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LogIn -HCA</title>
+    <script src="~/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        //document.addEventListener('contextmenu', function (e) {
+        //    e.preventDefault();
+        //});
+        //document.onkeydown = function (e) {
+        //    if (e.ctrlKey &&
+        //        (e.keyCode === 67 ||
+        //            e.keyCode === 86 ||
+        //            e.keyCode === 85 ||
+        //            e.keyCode === 117)) {
+        //        return false;
+        //    } else {
+        //        return true;
+        //    }
+        //};
+        //$(document).keypress("u", function (e) {
+        //    if (e.ctrlKey) {
+        //        return false;
+        //    }
+        //    else {
+        //        return true;
+        //    }
+        //});
+        //$(document).keydown(function (event) {
+        //    if (event.keyCode == 123) { // Prevent F12
+        //        return false;
+        //    } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I
+        //        return false;
+        //    }
+        //});
+
+        //$(document).ready(function () {
+
+        //    $("#message-alert").hide();
+
+        //    if ('@ViewBag.ErrorMessage' != '' && '@ViewBag.ErrorMessage' != 'null' && '@ViewBag.ErrorMessage' != null) {
+        //        $("#message").html('@ViewBag.ErrorMessage');
+        //        $("#messageheading").html('Warning !');
+        //        $("#message-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+        //            $("#message-alert").slideUp(1000);
+        //        });
+        //    }
+        //});
+    </script>
+
+    <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
+    <style>
+        .input-group {
+            width: 95%;
+        }
+    </style>
+</head>
+<body class="hold-transition login-page">
+
+    <div class="login-box" style="width:35%!important">
+
+        <div class="card-header text-center">
+            <img src="~/dist/img/master-logo.png.webp" alt="logo" height="50" width="150" />
+            <br />
+
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+          
+            <div class="card-header text-center">
+                @*<img src="~/dist/img/master-logo.png.webp" alt="logo" height="35" width="150" />*@
+                <br />
+
+                <a href="#" style="color:#26a59d;" class="h3"><b>HCA  </b>Management</a>
+            </div>
+
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Sign in to start your session</p>
+                <div class="container" id="message-alert" style="display: none;">
+                    <div class="alert alert-warning" id="messagetype">
+                        <strong id="messageheading">Warning!</strong>
+                        <span id="message"></span>
+                    </div>
+                </div>
+                @using (Html.BeginForm(new { @class = "form-horizontal" }))
+                {
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text" style="border:none;">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                        <input type="text" id="username" name="username" class="form-control form-control-border" autocomplete="off" placeholder="User Name">
+
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text" style="border:none;">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        <input type="password" id="password" name="password" class="form-control form-control-border" placeholder="Password">
+
+                    </div>
+                    <div class="row">
+                        <div class="col-8"></div>
+                        <div class="col-12"><br /><button type="submit" class="btn btn-block btn-primary" style="background-color:#26a59d; border-color:transparent!important;">Sign In</button></div>
+                       
+                    </div>
+                }
+            </div>
+            <div class="card-footer text-sm-right">
+                <a href="#" style="color:#26a59d; font-size:small">Developed By <b>Incline Solution</b></a>
+            </div>
+        </div>
+    </div>
+ 
+    <script src="~/plugins/jquery/jquery.min.js"></script>
+    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <script src="~/dist/js/adminlte.min.js"></script>
+</body>
+</html>

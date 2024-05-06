@@ -109,3 +109,20 @@ select * from users;
 
 
 --truncate table user_menu_auth
+
+
+
+
+
+
+alter proc [dbo].[spLoginValidation]
+	@username nvarchar(100),@password nvarchar(64)
+	as
+	begin
+	select user_sk,application_sk,department_sk,designation_sk,location_sk,user_name,user_full_name,password_expiry,application_name,application_desc,department_name,department_desc,designation_name,designation_desc
+,location_name,location_desc from vu_user_details
+where [user_name]=@username and [password]=@password and application_sk=1
+	end
+
+
+

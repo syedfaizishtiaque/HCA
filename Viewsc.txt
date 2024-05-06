@@ -1,0 +1,103 @@
+USE [HCA]
+GO
+
+/****** Object:  View [dbo].[vu_user_menu_details]    Script Date: 5/7/2024 1:55:22 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+ALTER view [dbo].[vu_user_menu_details] as
+
+
+select usr.user_sk
+ ,mnu.menu_sk,mnu.menu_title , mnu.menu_url , mnu.menu_icon , mnu.parent_sk , mnu.child_seq , mnu.parent_seq
+ ,uma.can_create , uma.can_delete , uma.can_edit , uma.can_view
+ from users usr
+
+inner join user_role_auth ura on ura.user_sk = usr.user_sk
+inner join user_menu_auth uma on uma.user_sk = usr.user_sk
+inner join menus mnu on mnu.menu_sk = uma.menu_sk or mnu.parent_sk is null or mnu.parent_sk=0
+
+where usr.is_active=1 and ura.is_active=1 and uma.is_active=1  and mnu.is_active=1
+GO
+
+
+USE [HCA]
+GO
+
+/****** Object:  View [dbo].[vu_user_details]    Script Date: 5/7/2024 1:55:15 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+ALTER view [dbo].[vu_user_details] as
+
+select usr.user_sk, usr.application_sk , usr.department_sk , usr.designation_sk , usr.location_sk
+ ,usr.user_name,usr.user_full_name,usr.password,usr.password_expiry   
+ ,app.application_name , app.application_desc 
+ ,dep.department_name , dep.department_desc
+ ,des.designation_name , des.designation_desc
+ ,loc.location_name , loc.location_desc
+
+ from users usr
+inner join applications app on app.application_sk = usr.application_sk
+inner join departments dep on dep.department_sk = usr.department_sk
+inner join designations des on des.designation_sk = usr.designation_sk
+inner join locations loc on loc.location_sk = usr.location_sk
+
+where usr.is_active=1
+GO
+
+
+USE [HCA]
+GO
+
+/****** Object:  View [dbo].[vu_role_base_details]    Script Date: 5/7/2024 1:55:09 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER view [dbo].[vu_role_base_details] as
+
+
+select usr.user_sk
+ ,mnu.menu_sk,mnu.menu_title , mnu.menu_url , mnu.menu_icon , mnu.parent_sk , mnu.child_seq , mnu.parent_seq
+  ,rma.can_create , rma.can_delete , rma.can_edit , rma.can_view
+ from users usr
+
+inner join user_role_auth ura on ura.user_sk = usr.user_sk
+inner join roles rol on rol.role_sk = ura.role_sk
+inner join role_menu_auth rma on rma.role_sk = rol.role_sk
+inner join menus mnu on mnu.menu_sk = rma.menu_sk or mnu.parent_sk is null or mnu.parent_sk=0
+
+where usr.is_active=1 and ura.is_active=1 and rma.is_active=1  and mnu.is_active=1
+GO
+
+
+USE [HCA]
+GO
+
+/****** Object:  View [dbo].[vu_menu_details]    Script Date: 5/7/2024 1:55:03 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER view [dbo].[vu_menu_details] as
+select user_sk,menu_sk,menu_title,menu_url,menu_icon,parent_sk,child_seq,parent_seq,can_create,can_delete,can_edit,can_view from vu_role_base_details
+union 
+select  user_sk,menu_sk,menu_title,menu_url,menu_icon,parent_sk,child_seq,parent_seq,can_create,can_delete,can_edit,can_view from vu_user_menu_details
+GO
+
+

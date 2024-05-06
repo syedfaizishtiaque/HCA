@@ -17,6 +17,12 @@ builder.Services.AddSession(option =>
     option.IdleTimeout = TimeSpan.FromSeconds(120);
 });
 //JWT Registration
+
+IConfiguration configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .Build();
+   builder.Services.AddDbContext<HCAContext>(option => option.UseSqlServer(configuration.GetConnectionString("hca_Connection")));
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -26,17 +32,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            //ValidIssuer = false,
-            //ValidAudience = "yourAudience",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("yourSecretKey")),
+            ValidIssuer = configuration["Jwt:Issuer"],// "http://localhost:5178/",
+            ValidAudience = configuration["Jwt:Issuer"],// "http://localhost:5178/",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"])),
             ClockSkew = TimeSpan.Zero
         };
     });
-IConfiguration configuration = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json")
-    .Build();
-   builder.Services.AddDbContext<HCAContext>(option => option.UseSqlServer(configuration.GetConnectionString("hca_Connection")));
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -49,7 +50,7 @@ app.UseStaticFiles();
 app.UseSession();
 app.UseRouting();
 app.UseAuthorization();
-
+app.UseAuthentication();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

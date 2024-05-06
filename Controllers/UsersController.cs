@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HCA.DbModels;
 using HCA.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HCA.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         private readonly HCAContext _context;

@@ -1,0 +1,63 @@
+USE [UsrMgmnt]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Logindata]    Script Date: 5/6/2024 7:11:29 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER proc [dbo].[sp_Logindata]
+	@username nvarchar(100),@appId int
+	as
+	begin
+
+	
+ select dpt.dept_sk , dpt.dept_name , usr.usr_sk , usr.usr_nme , usr.usr_full_nme , app.app_sk ,app.app_desc  , rol.role_sk, rol.role_desc
+                                 , mnu.mnu_sk , mnu.mnu_desc , mnu.mnu_url , mnu.mnu_icon  , mnu.parent_mnu_sk , mnu.seq_no
+                                 , rolmnu.can_slct , rolmnu.can_insrt ,rolmnu.can_updt , rolmnu.can_del,
+								 deptyp.dept_type_sk , deptyp.dept_type_name
+                                from usrs usr
+                               left join usr_apps usrapp on usrapp.usr_sk = usr.usr_sk
+					  --left join tblBranch br on br.Branch_code = usr.branch_code
+							   left join dept dpt on dpt.dept_sk = usr.dept_sk
+							   inner join dept_type deptyp on deptyp.dept_type_sk = dpt.dept_type_sk
+                               left join apps app on app.app_sk = usrapp.app_sk
+                               left join usr_auth_roles usrauthrol on usrauthrol.usr_sk = usr.usr_sk
+                               left join usr_role rol on rol.role_sk = usrauthrol.role_sk
+                               left join role_mnus rolmnu on rolmnu.role_sk = usrauthrol.role_sk
+                               left join mnus mnu on mnu.mnu_sk = rolmnu.mnu_sk  and mnu.app_sk = app.app_sk
+                             where mnu.is_active=1 and rolmnu.is_active=1 and  lower(usr.usr_nme)=lower(@username) and usr.is_active=1
+							 and app.app_sk = @appId
+						union all
+						select dpt.dept_sk , dpt.dept_name , usr.usr_sk , usr.usr_nme , usr.usr_full_nme , app.app_sk ,app.app_desc  , 0 as role_sk, '' as role_desc
+                                 , mnu.mnu_sk , mnu.mnu_desc , mnu.mnu_url , mnu.mnu_icon  , mnu.parent_mnu_sk , mnu.seq_no
+                                 , usrmnu.can_slct , usrmnu.can_insrt ,usrmnu.can_updt , usrmnu.can_del,
+								 deptyp.dept_type_sk , deptyp.dept_type_name
+                                from usrs usr
+                               left join usr_apps usrapp on usrapp.usr_sk = usr.usr_sk
+					 
+							   left join dept dpt on dpt.dept_sk = usr.dept_sk
+							   inner join dept_type deptyp on deptyp.dept_type_sk = dpt.dept_type_sk
+                               left join apps app on app.app_sk = usrapp.app_sk
+                               --left join usr_auth_roles usrauthrol on usrauthrol.usr_sk = usr.usr_sk
+                               --left join usr_role rol on rol.role_sk = usrauthrol.role_sk
+                               left join usr_mnus usrmnu on  usrmnu.app_sk = app.app_sk and usrmnu.usr_sk=usr.usr_sk
+                               left join mnus mnu on mnu.mnu_sk = usrmnu.mnu_sk  and mnu.app_sk = app.app_sk
+                             where mnu.is_active=1 and usrmnu.is_active=1 and  lower(usr.usr_nme)=lower(@username)
+							 and app.app_sk = @appId and usrmnu.app_sk=@appId and usr.is_active=1-- and mnu.mnu_sk not in (select mnu_sk from role_mnus where role_sk =usrauthrol.role_sk)  
+							 order by  mnu.seq_no  
+	--Change on 17May2023 by SMFA
+	 --select usr.usr_sk , usr.usr_nme , usr.usr_full_nme , app.app_sk ,app.app_desc  , rol.role_sk, rol.role_desc  
+	 --                            , mnu.mnu_sk , mnu.mnu_desc , mnu.mnu_url , mnu.mnu_icon  , mnu.parent_mnu_sk , mnu.seq_no  
+	 --                            , rolmnu.can_slct , rolmnu.can_insrt ,rolmnu.can_updt , rolmnu.can_del
+	 --                           from usrs usr
+	 --                           left join usr_apps usrapp on usrapp.usr_sk = usr.usr_sk
+	 --                           left join apps app on app.app_sk = usrapp.app_sk
+	 --                           left join usr_auth_roles usrauthrol on usrauthrol.usr_sk = usr.usr_sk
+	 --                           left join usr_role rol on rol.role_sk = usrauthrol.role_sk
+	 --                           left join role_mnus rolmnu on rolmnu.role_sk = usrauthrol.role_sk
+	 --                           left join mnus mnu on mnu.mnu_sk = rolmnu.mnu_sk and mnu.app_sk = usrapp.app_sk
+  --                           where mnu.is_active=1 and lower(usr.usr_nme)=lower(@username)
+		--					 and app.app_sk = @appId
+		--					 order by  mnu.seq_no  
+	end

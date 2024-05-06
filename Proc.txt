@@ -61,3 +61,51 @@ ALTER proc [dbo].[sp_Logindata]
 		--					 and app.app_sk = @appId
 		--					 order by  mnu.seq_no  
 	end
+
+
+
+
+
+
+
+
+
+
+
+	insert into applications 
+(application_name,application_desc,application_logo) values
+('HCA' , 'Home Care Aid' , '~/dist/img/master-logo.png.webp');
+insert into departments 
+(department_name,department_desc , created_by) values
+('IT' , 'Information Technologies' ,1);
+insert into designations 
+(designation_name,designation_desc , created_by) values
+('Sr. Software Engineer' , 'Develop and Support Applications' ,1);
+insert into locations 
+(location_name,location_desc , created_by) values
+('Landhi' , 'Landhi No2 ' ,1);
+insert into role_menu_auth 
+(role_sk,menu_sk, is_active,can_create,can_delete,can_edit,can_view,created_by) values
+(1,1,1,1,1,1,1,1);
+insert into user_menu_auth 
+(user_sk,menu_sk, is_active,can_create,can_delete,can_edit,can_view,created_by) values
+(1,1,1,1,1,1,1,1);
+insert into user_role_auth 
+(user_sk,role_sk, is_active,created_by) values
+(1,1,1,1);
+
+
+
+select * from applications;
+select * from departments;
+select * from designations;
+select * from locations;
+select * from menus;
+select * from role_menu_auth;
+select * from roles;
+select * from user_menu_auth;
+select * from user_role_auth;
+select * from users;
+
+
+--truncate table user_menu_auth

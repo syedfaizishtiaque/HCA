@@ -12,36 +12,37 @@ namespace HCA.Services
             context = _context;
         }
 
-        public async Task<List<SessionModel>> GetData(string username)
+        public async Task<List<vu_menu_details>> GetMenuData(int user_sk)
         {
-            List<SessionModel> session = new List<SessionModel>();
+            List<vu_menu_details> session = new List<vu_menu_details>();
             try
             {
-                session = await GetSession(username);
-                return session;
+                
+                    session = context.Set<vu_menu_details>().FromSqlRaw(@"Exec spLoginValidation @username , @password", new { username = user_sk }).ToList();
+                
             }
             catch (Exception ex)
             {
-                await servErrorLog.WriteErrorLog("Error", ex, "GetData/Serv_Session");
+                await servErrorLog.WriteErrorLog("Error", ex, "IsValidUser/Serv_Session");
             }
             return session;
         }
 
-        private async Task<List<SessionModel>> GetSession(string username)
+        private async Task<vu_user_details> GetUserData(string username , string password)
         {
-            List<SessionModel> list = new List<SessionModel>();
+            vu_user_details obj = new vu_user_details(); 
             try
             {
                 if (!string.IsNullOrEmpty(username))
                 {
-                    //  list = context.Set<SessionModel>().FromSqlRaw(@"Exec sp_Logindata @username , @appId", new { username = username, appId = 9 }).ToList();
+                      obj = context.Set<vu_user_details>().FromSqlRaw(@"Exec spLoginValidation @username , @password", new { username = username, password = password }).FirstOrDefault();
                 }
             }
             catch (Exception ex)
             {
                 await servErrorLog.WriteErrorLog("Error", ex, "IsValidUser/Serv_Session");
             }
-            return list;
+            return obj;
         }
 
         public async Task<bool> IsValiduser(string userId, string password)

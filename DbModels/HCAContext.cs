@@ -17,13 +17,19 @@ namespace HCA.DbModels
         }
 
         public virtual DbSet<Application> Applications { get; set; } = null!;
-        public virtual DbSet<Company> Companies { get; set; } = null!;
+        public virtual DbSet<Department> Departments { get; set; } = null!;
+        public virtual DbSet<Designation> Designations { get; set; } = null!;
+        public virtual DbSet<Location> Locations { get; set; } = null!;
         public virtual DbSet<Menu> Menus { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<RoleMenuAuth> RoleMenuAuths { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<UserMenuAuth> UserMenuAuths { get; set; } = null!;
         public virtual DbSet<UserRoleAuth> UserRoleAuths { get; set; } = null!;
+        public virtual DbSet<VuMenuDetail> VuMenuDetails { get; set; } = null!;
+        public virtual DbSet<VuRoleBaseDetail> VuRoleBaseDetails { get; set; } = null!;
+        public virtual DbSet<VuUserDetail> VuUserDetails { get; set; } = null!;
+        public virtual DbSet<VuUserMenuDetail> VuUserMenuDetails { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -55,51 +61,142 @@ namespace HCA.DbModels
                     .IsUnicode(false)
                     .HasColumnName("application_name");
 
-                entity.Property(e => e.CompanySk).HasColumnName("company_sk");
-
                 entity.Property(e => e.CreatedOn)
                     .HasColumnType("datetime")
                     .HasColumnName("created_on")
                     .HasDefaultValueSql("(getdate())");
             });
 
-            modelBuilder.Entity<Company>(entity =>
+            modelBuilder.Entity<Department>(entity =>
             {
-                entity.HasKey(e => e.CompanySk);
+                entity.HasKey(e => e.DepartmentSk);
 
-                entity.ToTable("companies");
+                entity.ToTable("departments");
 
-                entity.Property(e => e.CompanySk).HasColumnName("company_sk");
+                entity.Property(e => e.DepartmentSk).HasColumnName("department_sk");
 
-                entity.Property(e => e.CompanyAddress).HasColumnName("company_address");
-
-                entity.Property(e => e.CompanyDesc).HasColumnName("company_desc");
-
-                entity.Property(e => e.CompanyLetterCode)
-                    .HasMaxLength(2)
-                    .IsUnicode(false)
-                    .HasColumnName("company_letter_code");
-
-                entity.Property(e => e.CompanyLogo).HasColumnName("company_logo");
-
-                entity.Property(e => e.CompanyName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("company_name");
+                entity.Property(e => e.CreatedBy).HasColumnName("created_by");
 
                 entity.Property(e => e.CreatedOn)
                     .HasColumnType("datetime")
                     .HasColumnName("created_on")
                     .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
+
+                entity.Property(e => e.DeletedOn)
+                    .HasColumnType("datetime")
+                    .HasColumnName("deleted_on");
+
+                entity.Property(e => e.DepartmentDesc).HasColumnName("department_desc");
+
+                entity.Property(e => e.DepartmentName)
+                    .HasMaxLength(250)
+                    .HasColumnName("department_name");
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasColumnName("is_active")
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
+
+                entity.Property(e => e.UpdatedOn)
+                    .HasColumnType("datetime")
+                    .HasColumnName("updated_on");
+            });
+
+            modelBuilder.Entity<Designation>(entity =>
+            {
+                entity.HasKey(e => e.DesignationSk);
+
+                entity.ToTable("designations");
+
+                entity.Property(e => e.DesignationSk).HasColumnName("designation_sk");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+
+                entity.Property(e => e.CreatedOn)
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_on")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
+
+                entity.Property(e => e.DeletedOn)
+                    .HasColumnType("datetime")
+                    .HasColumnName("deleted_on");
+
+                entity.Property(e => e.DesignationDesc).HasColumnName("designation_desc");
+
+                entity.Property(e => e.DesignationName)
+                    .HasMaxLength(250)
+                    .HasColumnName("designation_name");
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasColumnName("is_active")
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
+
+                entity.Property(e => e.UpdatedOn)
+                    .HasColumnType("datetime")
+                    .HasColumnName("updated_on");
+            });
+
+            modelBuilder.Entity<Location>(entity =>
+            {
+                entity.HasKey(e => e.LocationSk);
+
+                entity.ToTable("locations");
+
+                entity.Property(e => e.LocationSk).HasColumnName("location_sk");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+
+                entity.Property(e => e.CreatedOn)
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_on")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
+
+                entity.Property(e => e.DeletedOn)
+                    .HasColumnType("datetime")
+                    .HasColumnName("deleted_on");
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasColumnName("is_active")
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.LocationDesc).HasColumnName("location_desc");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .HasColumnName("location_name");
+
+                entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
+
+                entity.Property(e => e.UpdatedOn)
+                    .HasColumnType("datetime")
+                    .HasColumnName("updated_on");
             });
 
             modelBuilder.Entity<Menu>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.MenuSk);
 
                 entity.ToTable("menus");
 
+                entity.Property(e => e.MenuSk).HasColumnName("menu_sk");
+
                 entity.Property(e => e.ApplicationSk).HasColumnName("application_sk");
+
+                entity.Property(e => e.ChildSeq)
+                    .HasColumnName("child_seq")
+                    .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.CreatedOn)
                     .HasColumnType("datetime")
@@ -114,8 +211,6 @@ namespace HCA.DbModels
                     .HasMaxLength(80)
                     .HasColumnName("menu_icon");
 
-                entity.Property(e => e.MenuSk).HasColumnName("menu_sk");
-
                 entity.Property(e => e.MenuTitle)
                     .HasMaxLength(50)
                     .IsUnicode(false)
@@ -124,6 +219,10 @@ namespace HCA.DbModels
                 entity.Property(e => e.MenuUrl)
                     .HasMaxLength(250)
                     .HasColumnName("menu_url");
+
+                entity.Property(e => e.ParentSeq)
+                    .HasColumnName("parent_seq")
+                    .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.ParentSk).HasColumnName("parent_sk");
             });
@@ -348,6 +447,179 @@ namespace HCA.DbModels
                 entity.Property(e => e.UpdatedOn)
                     .HasColumnType("datetime")
                     .HasColumnName("updated_on");
+
+                entity.Property(e => e.UserSk).HasColumnName("user_sk");
+            });
+
+            modelBuilder.Entity<VuMenuDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vu_menu_details");
+
+                entity.Property(e => e.CanCreate).HasColumnName("can_create");
+
+                entity.Property(e => e.CanDelete).HasColumnName("can_delete");
+
+                entity.Property(e => e.CanEdit).HasColumnName("can_edit");
+
+                entity.Property(e => e.CanView).HasColumnName("can_view");
+
+                entity.Property(e => e.ChildSeq).HasColumnName("child_seq");
+
+                entity.Property(e => e.MenuIcon)
+                    .HasMaxLength(80)
+                    .HasColumnName("menu_icon");
+
+                entity.Property(e => e.MenuSk).HasColumnName("menu_sk");
+
+                entity.Property(e => e.MenuTitle)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("menu_title");
+
+                entity.Property(e => e.MenuUrl)
+                    .HasMaxLength(250)
+                    .HasColumnName("menu_url");
+
+                entity.Property(e => e.ParentSeq).HasColumnName("parent_seq");
+
+                entity.Property(e => e.ParentSk).HasColumnName("parent_sk");
+
+                entity.Property(e => e.UserSk).HasColumnName("user_sk");
+            });
+
+            modelBuilder.Entity<VuRoleBaseDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vu_role_base_details");
+
+                entity.Property(e => e.CanCreate).HasColumnName("can_create");
+
+                entity.Property(e => e.CanDelete).HasColumnName("can_delete");
+
+                entity.Property(e => e.CanEdit).HasColumnName("can_edit");
+
+                entity.Property(e => e.CanView).HasColumnName("can_view");
+
+                entity.Property(e => e.ChildSeq).HasColumnName("child_seq");
+
+                entity.Property(e => e.MenuIcon)
+                    .HasMaxLength(80)
+                    .HasColumnName("menu_icon");
+
+                entity.Property(e => e.MenuSk).HasColumnName("menu_sk");
+
+                entity.Property(e => e.MenuTitle)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("menu_title");
+
+                entity.Property(e => e.MenuUrl)
+                    .HasMaxLength(250)
+                    .HasColumnName("menu_url");
+
+                entity.Property(e => e.ParentSeq).HasColumnName("parent_seq");
+
+                entity.Property(e => e.ParentSk).HasColumnName("parent_sk");
+
+                entity.Property(e => e.UserSk).HasColumnName("user_sk");
+            });
+
+            modelBuilder.Entity<VuUserDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vu_user_details");
+
+                entity.Property(e => e.ApplicationDesc)
+                    .IsUnicode(false)
+                    .HasColumnName("application_desc");
+
+                entity.Property(e => e.ApplicationName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("application_name");
+
+                entity.Property(e => e.ApplicationSk).HasColumnName("application_sk");
+
+                entity.Property(e => e.DepartmentDesc).HasColumnName("department_desc");
+
+                entity.Property(e => e.DepartmentName)
+                    .HasMaxLength(250)
+                    .HasColumnName("department_name");
+
+                entity.Property(e => e.DepartmentSk).HasColumnName("department_sk");
+
+                entity.Property(e => e.DesignationDesc).HasColumnName("designation_desc");
+
+                entity.Property(e => e.DesignationName)
+                    .HasMaxLength(250)
+                    .HasColumnName("designation_name");
+
+                entity.Property(e => e.DesignationSk).HasColumnName("designation_sk");
+
+                entity.Property(e => e.LocationDesc).HasColumnName("location_desc");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .HasColumnName("location_name");
+
+                entity.Property(e => e.LocationSk).HasColumnName("location_sk");
+
+                entity.Property(e => e.Password).HasColumnName("password");
+
+                entity.Property(e => e.PasswordExpiry)
+                    .HasColumnType("datetime")
+                    .HasColumnName("password_expiry");
+
+                entity.Property(e => e.UserFullName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("user_full_name");
+
+                entity.Property(e => e.UserName)
+                    .HasMaxLength(30)
+                    .HasColumnName("user_name");
+
+                entity.Property(e => e.UserSk).HasColumnName("user_sk");
+            });
+
+            modelBuilder.Entity<VuUserMenuDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vu_user_menu_details");
+
+                entity.Property(e => e.CanCreate).HasColumnName("can_create");
+
+                entity.Property(e => e.CanDelete).HasColumnName("can_delete");
+
+                entity.Property(e => e.CanEdit).HasColumnName("can_edit");
+
+                entity.Property(e => e.CanView).HasColumnName("can_view");
+
+                entity.Property(e => e.ChildSeq).HasColumnName("child_seq");
+
+                entity.Property(e => e.MenuIcon)
+                    .HasMaxLength(80)
+                    .HasColumnName("menu_icon");
+
+                entity.Property(e => e.MenuSk).HasColumnName("menu_sk");
+
+                entity.Property(e => e.MenuTitle)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("menu_title");
+
+                entity.Property(e => e.MenuUrl)
+                    .HasMaxLength(250)
+                    .HasColumnName("menu_url");
+
+                entity.Property(e => e.ParentSeq).HasColumnName("parent_seq");
+
+                entity.Property(e => e.ParentSk).HasColumnName("parent_sk");
 
                 entity.Property(e => e.UserSk).HasColumnName("user_sk");
             });

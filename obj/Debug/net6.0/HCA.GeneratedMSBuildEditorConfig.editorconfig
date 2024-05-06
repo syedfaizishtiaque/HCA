@@ -9,61 +9,61 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = HCA
 build_property.RootNamespace = HCA
-build_property.ProjectDir = D:\NotJSProj\HCA\
+build_property.ProjectDir = D:\Zia Projects\HomeCareAid\HCA\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\NotJSProj\HCA
+build_property.MSBuildProjectDirectory = D:\Zia Projects\HomeCareAid\HCA
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/NotJSProj/HCA/Views/Home/Index.cshtml]
+[D:/Zia Projects/HomeCareAid/HCA/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NotJSProj/HCA/Views/Home/Privacy.cshtml]
+[D:/Zia Projects/HomeCareAid/HCA/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NotJSProj/HCA/Views/LogIn/Index.cshtml]
+[D:/Zia Projects/HomeCareAid/HCA/Views/LogIn/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9nSW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NotJSProj/HCA/Views/Shared/Error.cshtml]
+[D:/Zia Projects/HomeCareAid/HCA/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NotJSProj/HCA/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/Zia Projects/HomeCareAid/HCA/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NotJSProj/HCA/Views/Users/Create.cshtml]
+[D:/Zia Projects/HomeCareAid/HCA/Views/Users/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NotJSProj/HCA/Views/Users/Delete.cshtml]
+[D:/Zia Projects/HomeCareAid/HCA/Views/Users/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NotJSProj/HCA/Views/Users/Details.cshtml]
+[D:/Zia Projects/HomeCareAid/HCA/Views/Users/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NotJSProj/HCA/Views/Users/Edit.cshtml]
+[D:/Zia Projects/HomeCareAid/HCA/Views/Users/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NotJSProj/HCA/Views/Users/Index.cshtml]
+[D:/Zia Projects/HomeCareAid/HCA/Views/Users/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NotJSProj/HCA/Views/_ViewImports.cshtml]
+[D:/Zia Projects/HomeCareAid/HCA/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NotJSProj/HCA/Views/_ViewStart.cshtml]
+[D:/Zia Projects/HomeCareAid/HCA/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NotJSProj/HCA/Views/Shared/_Layout.cshtml]
+[D:/Zia Projects/HomeCareAid/HCA/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-e6ecp1t95u

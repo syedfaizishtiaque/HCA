@@ -5,7 +5,7 @@ namespace HCA.DbModels
 {
     public partial class Menu
     {
-        public int? MenuSk { get; set; }
+        public int MenuSk { get; set; }
         public int? ApplicationSk { get; set; }
         public string? MenuTitle { get; set; }
         public string? MenuUrl { get; set; }
@@ -13,5 +13,7 @@ namespace HCA.DbModels
         public string? MenuIcon { get; set; }
         public DateTime? CreatedOn { get; set; }
         public bool? IsActive { get; set; }
+        public int? ParentSeq { get; set; }
+        public int? ChildSeq { get; set; }
     }
 }

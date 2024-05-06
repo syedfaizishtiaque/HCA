@@ -12,12 +12,13 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddDistributedMemoryCache();
 //builder.Services.AddControllers(x => x.Filters.Add<ValidateSession>());
-builder.Services.AddSession(option =>
+builder.Services.AddSession(options =>
 {
-    option.IdleTimeout = TimeSpan.FromSeconds(120);
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Adjust as needed
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 //JWT Registration
-
 IConfiguration configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
     .Build();

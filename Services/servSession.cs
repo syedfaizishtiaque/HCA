@@ -40,7 +40,9 @@ namespace HCA.Services
             }
             catch (Exception ex)
             {
+                
                 await servErrorLog.WriteErrorLog("Error", ex, "IsValidUser/Serv_Session");
+                
             }
             return obj;
         }
